@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Andrew Roberts — The MARC Group</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --white: #F0F0F0;
+      --gold: #C9A84C;
+      --dim: #999;
+      --dim2: #555;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .poster {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── GOLD TOP BAR ── */
+    .gold-bar {
+      height: 4px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── TOP STRIP ── */
+    .top-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 20px;
+      border-bottom: 1px solid #1E1E1E;
+      flex-shrink: 0;
+    }
+    .top-strip span {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .top-strip .gold-txt { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid #1E1E1E;
+      flex-shrink: 0;
+      min-height: 220px;
+    }
+
+    .hero-left {
+      flex: 1;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #1E1E1E;
+    }
+
+    .marc-logo {
+      width: 100%;
+      max-width: 155px;
+      height: auto;
+      display: block;
+    }
+
+    .hero-name-block { margin-top: 16px; }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11vw;
+      line-height: 0.88;
+      color: var(--white);
+      display: block;
+      text-transform: none;
+    }
+
+    .hero-title {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-top: 8px;
+    }
+
+    /* Right: headshot */
+    .hero-right {
+      width: 38%;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .headshot {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      z-index: 2;
+    }
+
+    /* ── GOLD RULE ── */
+    .g-rule {
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      flex-shrink: 0;
+    }
+
+    /* ── INFO ZONE ── */
+    .info-zone {
+      display: flex;
+      flex: 1;
+    }
+
+    .side-label {
+      width: 32px;
+      flex-shrink: 0;
+      border-right: 1px solid #1E1E1E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .side-label span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--dim2);
+    }
+
+    .info-content {
+      flex: 1;
+      padding: 28px 20px 28px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .info-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .email-user {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 8vw;
+      line-height: 0.9;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+    .email-user:hover { color: var(--gold); }
+
+    .email-domain {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-top: 3px;
+    }
+
+    .phone-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 8vw;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      line-height: 1;
+      display: block;
+      text-transform: none;
+    }
+    .phone-val:hover { color: var(--gold); }
+
+    .links-pair {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+    }
+
+    .web-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5vw;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      line-height: 1;
+      text-transform: none;
+    }
+    .web-val:hover { color: var(--gold); }
+
+    .ig-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: var(--dim);
+      text-decoration: none;
+      display: block;
+      line-height: 1;
+    }
+    .ig-val:hover { color: var(--gold); }
+
+    /* ── SAVE BUTTON ── */
+    .btn-save {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 18px 20px;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      transition: filter 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-save:hover { filter: brightness(1.12); }
+    .btn-save:active { filter: brightness(0.88); }
+
+    .btn-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7vw;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-transform: none;
+    }
+    .btn-sub {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.45);
+      text-align: right;
+    }
+
+    /* ── QR SECTION ── */
+    .qr-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-top: 1px solid #1E1E1E;
+      flex-shrink: 0;
+    }
+    .qr-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .qr-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .qr-url {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+    }
+    #qrcode img, #qrcode canvas {
+      border: 2px solid #1E1E1E;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 20px;
+      border-top: 1px solid #141414;
+      flex-shrink: 0;
+    }
+    .footer-txt {
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      color: var(--dim2);
+    }
+    .footer-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="gold-bar"></div>
+
+  <div class="top-strip">
+    <span>The MARC Group Inc.</span>
+    <span class="gold-txt">Newmarket · ON</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-left">
+      <img class="marc-logo" src="MARC_Logo__wht_.png" alt="The MARC Group" />
+      <div class="hero-name-block">
+        <span class="hero-name">Andrew Roberts</span>
+        <span class="hero-title">Marketing &amp; Graphic Designer</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="headshot" src="headshot.jpg" alt="Andrew Roberts" />
+    </div>
+  </div>
+
+  <div class="g-rule"></div>
+
+  <div class="info-zone">
+    <div class="side-label"><span>Contact</span></div>
+    <div class="info-content">
+
+      <div>
+        <span class="info-label">Email</span>
+        <a class="email-user" href="mailto:andrewroberts@themarcgroupinc.com">andrewroberts</a>
+        <span class="email-domain">@themarcgroupinc.com</span>
+      </div>
+
+      <div>
+        <span class="info-label">Phone</span>
+        <a class="phone-val" href="tel:2894520770">289.452.0770</a>
+      </div>
+
+      <div class="links-pair">
+        <div>
+          <span class="info-label">Website</span>
+          <a class="web-val" href="https://themarcgroupinc.com" target="_blank" rel="noopener">themarcgroupinc.com</a>
+        </div>
+        <div>
+          <span class="info-label">Instagram</span>
+          <a class="ig-val" href="https://instagram.com/themarcgroupinc" target="_blank" rel="noopener">@themarcgroupinc</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn-save" onclick="downloadVCard()">
+    <span class="btn-main">SAVE CONTACT</span>
+    <span class="btn-sub">Add to<br>your phone</span>
+  </button>
+
+  <div class="qr-section">
+    <div class="qr-left">
+      <span class="qr-label">Scan to connect</span>
+      <span class="qr-url">themarcgroupinc.com</span>
+    </div>
+    <div id="qrcode"></div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-txt">194 Main St S, Newmarket ON</span>
+    <div class="footer-dot"></div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById('qrcode'), {
+    text: 'https://themarcgroupinc.com',
+    width: 80,
+    height: 80,
+    colorDark: '#C9A84C',
+    colorLight: '#0A0A0A',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  function downloadVCard() {
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:Andrew Roberts',
+      'N:Roberts;Andrew;;;',
+      'ORG:The MARC Group Inc.',
+      'TITLE:Marketing & Graphic Designer',
+      'TEL;TYPE=WORK:+12894520770',
+      'EMAIL;TYPE=WORK:andrewroberts@themarcgroupinc.com',
+      'URL:https://themarcgroupinc.com',
+      'ADR;TYPE=WORK:;;194 Main St S;Newmarket;ON;;CA',
+      'X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/themarcgroupinc',
+      'END:VCARD'
+    ].join('\r\n');
+
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'andrew-roberts-marc-group.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+</body>
+</html>
